@@ -1,5 +1,6 @@
 import yfinance as yf
 import matplotlib.pyplot as plt
+from pandas import DataFrame
 
 
 
@@ -23,5 +24,12 @@ def get_historical(tickerSym, period):
     plt.savefig("stock.png")
     print(f"Graphed data for {tickerSym}")
 
-#get_historical('tsla', '5d')
+def get_recommendations(tickerSym):
+    stock = yf.Ticker(tickerSym)
+    recs = stock.recommendations.tail(5)
+    recs = DataFrame(recs)
+    recs = recs.values.tolist()
+    return recs
 
+#get_historical('tsla', '5d')
+get_recommendations("msft")
